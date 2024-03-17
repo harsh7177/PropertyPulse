@@ -70,7 +70,7 @@ st.sidebar.markdown(f"""
         
  
 """, unsafe_allow_html=True)
-
+@st.cache_data
 def get_city_coordinates(city_name):
     geolocator = Nominatim(user_agent="your_app_name")
     location = geolocator.geocode(city_name)
