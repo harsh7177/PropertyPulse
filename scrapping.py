@@ -29,44 +29,44 @@ def sub_scrap(href):
     return df
 def area(href):
     url = 'https://www.makaan.com/noida-property/sector-150-flats-for-sale-50199'
-result = {
-            'BHK': [],
-            'Status': [],
-            'Size(Sq/ft)': [],
-            'Price/Sqft': [],
-            'Price': [],
-            'bath':[]
-        }
-        
-scrap = bs(session.get(url).text, 'html.parser')
-for i in range(8):
-            sub_url = url if i == 0 else f'{url}?page={i + 1}'
-            area_scrap = bs(session.get(sub_url).text, 'html.parser')
+    result = {
+                'BHK': [],
+                'Status': [],
+                'Size(Sq/ft)': [],
+                'Price/Sqft': [],
+                'Price': [],
+                'bath':[]
+            }
             
-            for td in area_scrap.find_all('td', class_='lbl rate'):
-                result['Price/Sqft'].append(int(td.text.split('/')[0].replace(',', '')))
+    scrap = bs(session.get(url).text, 'html.parser')
+    for i in range(8):
+                sub_url = url if i == 0 else f'{url}?page={i + 1}'
+                area_scrap = bs(session.get(sub_url).text, 'html.parser')
                 
-            for ul in area_scrap.find_all('ul', class_='listing-details'):
-                try:
-                    result['bath'].append(ul.find(title='Bathrooms').text.split('Bathrooms')[0])
-                except AttributeError:
-                    result['bath'].append(None)
-                
-            for td in area_scrap.find_all('td', class_='size'):
-                result['Size(Sq/ft)'].append(td.text)
-                
-            for td in area_scrap.find_all('td', class_='val'):
-                result['Status'].append(td.text)
-                
-            for td in area_scrap.find_all('td', class_='price'):
-                price_text = td.text.strip()
-                if 'Cr' in price_text:
-                    result['Price'].append(round(float(price_text.split('Cr')[0].strip()) * 10000000, 1))
-                elif 'L' in price_text:
-                    result['Price'].append(round(float(price_text.split('L')[0].strip()) * 100000, 1))
+                for td in area_scrap.find_all('td', class_='lbl rate'):
+                    result['Price/Sqft'].append(int(td.text.split('/')[0].replace(',', '')))
                     
-            for div in area_scrap.find_all('div', class_='title-line'):
-                bhk_text = div.text.split('BHK')[0].strip()
-                result['BHK'].append(int(bhk_text) if bhk_text.isdigit() else None)
-df=pd.DataFrame(result)
-return df
+                for ul in area_scrap.find_all('ul', class_='listing-details'):
+                    try:
+                        result['bath'].append(ul.find(title='Bathrooms').text.split('Bathrooms')[0])
+                    except AttributeError:
+                        result['bath'].append(None)
+                    
+                for td in area_scrap.find_all('td', class_='size'):
+                    result['Size(Sq/ft)'].append(td.text)
+                    
+                for td in area_scrap.find_all('td', class_='val'):
+                    result['Status'].append(td.text)
+                    
+                for td in area_scrap.find_all('td', class_='price'):
+                    price_text = td.text.strip()
+                    if 'Cr' in price_text:
+                        result['Price'].append(round(float(price_text.split('Cr')[0].strip()) * 10000000, 1))
+                    elif 'L' in price_text:
+                        result['Price'].append(round(float(price_text.split('L')[0].strip()) * 100000, 1))
+                        
+                for div in area_scrap.find_all('div', class_='title-line'):
+                    bhk_text = div.text.split('BHK')[0].strip()
+                    result['BHK'].append(int(bhk_text) if bhk_text.isdigit() else None)
+    df=pd.DataFrame(result)
+    return df
