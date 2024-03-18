@@ -17,7 +17,7 @@ def scrap_city(loc1):
     dic=json.loads(response_body_dict['body'])
 
     df=pd.DataFrame.from_dict(dic)
-    return df,endpoint_url
+    return df
 
 def sub_scrap(href):
     endpoint_url = "https://stgpxl9ok3.execute-api.us-east-1.amazonaws.com/dev"
