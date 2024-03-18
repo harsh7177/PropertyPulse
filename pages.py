@@ -48,10 +48,11 @@ def suburbs_page(loc1):
             # Simulate a long-running process
         df=scrap_city(loc1) 
         df=df.rename(columns={'ProjectC':'ProjectCount'}) 
+        suburb = st.selectbox("Select Suburbs/Area", ["None"]+df['Area'].to_list())
     except:
         st.info("Some Error Encountered")
 
-    suburb = st.selectbox("Select Suburbs/Area", ["None"]+df['Area'].to_list())
+    
     if suburb== "None":
         st.info('Please Select Area from SelectBox')
     
