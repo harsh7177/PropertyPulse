@@ -10,7 +10,7 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 def city_page(loc1):
     try:
         if len(loc1)>0:
-            df,endpoint_url=scrap_city(loc1) 
+            df=scrap_city(loc1) 
             df=df.rename(columns={'ProjectC':'ProjectCount'}) 
             if True:
     
