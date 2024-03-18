@@ -42,6 +42,7 @@ def load_lot(filepath:str):
 def suburbs_page(loc1):
     df=scrap_city(loc1) 
     href=df[df['Area']=='Sector 150']['href']
+    href=href.values[0]
     sns.set_style("whitegrid")
     sns.set_palette("colorblind")
     lottie_cod=load_lot("anime/Animation.json")
