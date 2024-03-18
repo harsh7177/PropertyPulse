@@ -33,7 +33,7 @@ def city_page(loc1):
     except:
         df,endpoint_url=scrap_city(loc1) 
         st.write("Please select some different city")
-        st.write(endpoint_url)
+        st.write(endpoint_url+"hk")
 
 def load_lot(filepath:str):
     with open(filepath,"r") as f:
