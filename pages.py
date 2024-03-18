@@ -1,10 +1,12 @@
 import streamlit as st
-from scrapping import scrap_city,sub_scrap
+from scrapping import scrap_city,sub_scrap,area
 import matplotlib.pyplot as plt
 import time
 import seaborn as sns
 from streamlit_lottie import st_lottie
 import json
+import requests
+from bs4 import BeautifulSoup as bs
 from streamlit_lottie import st_lottie_spinner
 st.set_option('deprecation.showPyplotGlobalUse', False)
 def city_page(loc1):
@@ -55,7 +57,7 @@ def suburbs_page(loc1):
         href_sub=df.loc[df['Area'] == suburb, 'href'].iloc[0]
         apx_time= round(count * 0.05,2) 
         with st_lottie_spinner(lottie_cod):
-            df=sub_scrap(href_sub) 
+            df=area(href_sub) 
             st.write(df.shape)
         sfig, axs = plt.subplots(1, 2, figsize=(12, 6))
     
