@@ -9,7 +9,10 @@ import json
 
 @st.cache_data
 def scrap_city(loc1):
-    endpoint_url =${{secrets.ENDPOINT_URL}}
+    import os
+
+# Access the GitHub secret
+    endpoint_url = os.getenv("ENDPOINT_URL")
     post = {"loc": str(loc1),"href":"None"}
     response = requests.post(endpoint_url, json=post)
     z=response.text
