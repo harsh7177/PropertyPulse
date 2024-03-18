@@ -44,11 +44,6 @@ def suburbs_page(loc1):
     sns.set_style("whitegrid")
     sns.set_palette("colorblind")
     lottie_cod=load_lot("anime/Animation.json")
-
-    df=scrap_city(loc1) 
-    st.write(df)
-    df=df.rename(columns={'ProjectC':'ProjectCount'}) 
-            # Simulate a long-running process
     df=scrap_city(loc1) 
     df=df.rename(columns={'ProjectC':'ProjectCount'}) 
     suburb = st.selectbox("Select Suburbs/Area", ["None"]+df['Area'].to_list())
