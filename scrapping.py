@@ -38,7 +38,7 @@ def area(href):
                 'bath':[]
             }
             
-    scrap = bs(session.get(url).text, 'html.parser')
+    scrap = bs(requests.get(url).text, 'html.parser')
     for i in range(8):
                 sub_url = url if i == 0 else f'{url}?page={i + 1}'
                 area_scrap = bs(session.get(sub_url).text, 'html.parser')
