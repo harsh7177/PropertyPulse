@@ -8,29 +8,30 @@ import json
 from streamlit_lottie import st_lottie_spinner
 st.set_option('deprecation.showPyplotGlobalUse', False)
 def city_page(loc1):
-
-    if len(loc1)>0:
-        df=scrap_city(loc1) 
-        df=df.rename(columns={'ProjectC':'ProjectCount'}) 
-        if True:
-
-                sort_df = df[['Area', 'ProjectCount']].sort_values('ProjectCount', ascending=False).head(10)
-
-                # Create a bar chart with Matplotlib
-                fig, ax = plt.subplots(figsize=(10,6))  # Adjust the size as needed
-                ax.bar(sort_df['Area'], sort_df['ProjectCount'])
-
-                # Customize the chart
-                ax.set_xlabel('Area')
-                ax.set_ylabel('Listed Properties')
-                ax.set_title('Top 10 Areas by Properties Count')
-                ax.tick_params(axis='x', rotation=90) 
-                plt.style.use('ggplot') 
-
-                st.pyplot(fig)
-                
-                st.divider()
-                
+    try:
+        if len(loc1)>0:
+            df=scrap_city(loc1) 
+            df=df.rename(columns={'ProjectC':'ProjectCount'}) 
+            if True:
+    
+                    sort_df = df[['Area', 'ProjectCount']].sort_values('ProjectCount', ascending=False).head(10)
+    
+                    # Create a bar chart with Matplotlib
+                    fig, ax = plt.subplots(figsize=(10,6))  # Adjust the size as needed
+                    ax.bar(sort_df['Area'], sort_df['ProjectCount'])
+    
+                    # Customize the chart
+                    ax.set_xlabel('Area')
+                    ax.set_ylabel('Listed Properties')
+                    ax.set_title('Top 10 Areas by Properties Count')
+                    ax.tick_params(axis='x', rotation=90) 
+                    plt.style.use('ggplot') 
+    
+                    st.pyplot(fig)
+                    
+                    st.divider()
+    except:
+        st.write("Please select some different city")
 
 def load_lot(filepath:str):
     with open(filepath,"r") as f:
@@ -41,12 +42,14 @@ def suburbs_page(loc1):
     sns.set_style("whitegrid")
     sns.set_palette("colorblind")
     lottie_cod=load_lot("anime/Animation.json")
-
-    df=scrap_city(loc1) 
-    df=df.rename(columns={'ProjectC':'ProjectCount'}) 
-        # Simulate a long-running process
-    df=scrap_city(loc1) 
-    df=df.rename(columns={'ProjectC':'ProjectCount'}) 
+    try:
+        df=scrap_city(loc1) 
+        df=df.rename(columns={'ProjectC':'ProjectCount'}) 
+            # Simulate a long-running process
+        df=scrap_city(loc1) 
+        df=df.rename(columns={'ProjectC':'ProjectCount'}) 
+    except:
+        st.info("Some Error Encountered")
 
     suburb = st.selectbox("Select Suburbs/Area", ["None"]+df['Area'].to_list())
     if suburb== "None":
