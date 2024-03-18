@@ -12,7 +12,6 @@ def city_page(loc1):
         if len(loc1)>0:
             df=scrap_city(loc1) 
             df=df.rename(columns={'ProjectC':'ProjectCount'}) 
-            st.write(df.shape())
             if True:
     
                     sort_df = df[['Area', 'ProjectCount']].sort_values('ProjectCount', ascending=False).head(10)
@@ -47,6 +46,7 @@ def suburbs_page(loc1):
     lottie_cod=load_lot("anime/Animation.json")
     df=scrap_city(loc1) 
     df=df.rename(columns={'ProjectC':'ProjectCount'}) 
+    st.write(df.shape())
     suburb = st.selectbox("Select Suburbs/Area", ["None"]+df['Area'].to_list())
     if suburb== "None":
         st.info('Please Select Area from SelectBox')
