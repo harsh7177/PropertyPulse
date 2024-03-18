@@ -28,7 +28,7 @@ def sub_scrap(href):
     df=pd.DataFrame.from_dict(dic)
     return df
 def area(href):
-    url = 'https://www.makaan.com/noida-property/sector-150-flats-for-sale-50199'
+    url=href
     result = {
                 'BHK': [],
                 'Status': [],
@@ -41,7 +41,7 @@ def area(href):
     scrap = bs(requests.get(url).text, 'html.parser')
     for i in range(8):
                 sub_url = url if i == 0 else f'{url}?page={i + 1}'
-                area_scrap = bs(session.get(sub_url).text, 'html.parser')
+                area_scrap = bs(requests.get(sub_url).text, 'html.parser')
                 
                 for td in area_scrap.find_all('td', class_='lbl rate'):
                     result['Price/Sqft'].append(int(td.text.split('/')[0].replace(',', '')))
