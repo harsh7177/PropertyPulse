@@ -31,6 +31,7 @@ def city_page(loc1):
                     
                     st.divider()
     except:
+        df,endpoint_url=scrap_city(loc1) 
         st.write("Please select some different city")
         st.write(endpoint_url)
 
