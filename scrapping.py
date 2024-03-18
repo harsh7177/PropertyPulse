@@ -39,7 +39,7 @@ def area(href):
             }
             
     scrap = bs(requests.get(url).text, 'html.parser')
-    for i in area_scrap.find_all('div',class_='search-result-footer'):
+    for i in scrap.find_all('div',class_='search-result-footer'):
         x=i.text
         if '...' in x:
             area_page=x.split('...')[-1].strip()
