@@ -51,7 +51,7 @@ def suburbs_page(loc1):
             try:
                 df=area(href_sub) 
             except:
-                df=sub_scrap(href)
+                df=sub_scrap(href_sub)
         sfig, axs = plt.subplots(1, 2, figsize=(12, 6))
         status_counts = df['Status'].value_counts()
         axs[0].bar(status_counts.index, status_counts.values)
