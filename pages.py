@@ -15,22 +15,15 @@ def city_page(loc1):
             df=scrap_city(loc1) 
             df=df.rename(columns={'ProjectC':'ProjectCount'}) 
             if True:
-    
                     sort_df = df[['Area', 'ProjectCount']].sort_values('ProjectCount', ascending=False).head(10)
-    
-                    # Create a bar chart with Matplotlib
                     fig, ax = plt.subplots(figsize=(10,6))  # Adjust the size as needed
                     ax.bar(sort_df['Area'], sort_df['ProjectCount'])
-    
-                    # Customize the chart
                     ax.set_xlabel('Area')
                     ax.set_ylabel('Listed Properties')
                     ax.set_title('Top 10 Areas by Properties Count')
                     ax.tick_params(axis='x', rotation=90) 
-                    plt.style.use('ggplot') 
-    
+                    plt.style.use('ggplot')     
                     st.pyplot(fig)
-                    
                     st.divider()
     except:
         df,endpoint_url=scrap_city(loc1) 
@@ -47,21 +40,16 @@ def suburbs_page(loc1):
     sns.set_palette("colorblind")
     lottie_cod=load_lot("anime/Animation.json")
     df=df.rename(columns={'ProjectC':'ProjectCount'}) 
-    
     suburb = st.selectbox("Select Suburbs/Area", ["None"]+df['Area'].to_list())
     if suburb== "None":
-        st.info('Please Select Area from SelectBox')
-        
+        st.info('Please Select Area from SelectBox')   
     else:
         count=round( df.loc[df['Area'] == suburb, 'ProjectCount'].iloc[0],2)
         href_sub=df.loc[df['Area'] == suburb, 'href'].iloc[0]
         apx_time= round(count * 0.05,2) 
         with st_lottie_spinner(lottie_cod):
             df=area(href_sub) 
-            st.write(df.shape)
         sfig, axs = plt.subplots(1, 2, figsize=(12, 6))
-    
-    # Plot status counts
         status_counts = df['Status'].value_counts()
         axs[0].bar(status_counts.index, status_counts.values)
         axs[0].set_xlabel('Status')
@@ -76,38 +64,28 @@ def suburbs_page(loc1):
         st.pyplot()
         st.caption(f"<b>This graph displays the distribution of 'Ready to Move' and 'Under Construction' properties across different BHK categories in {suburb}.</b>", unsafe_allow_html=True)
         st.divider()
-            
         average_price_by_bhk = df.groupby('BHK')['Price'].mean()
         plt.bar(average_price_by_bhk.index, average_price_by_bhk.values)
         plt.xlabel('BHK')
         plt.ylabel('Average Price')
         plt.title('Average Price by BHK')
-            
         st.pyplot()
         st.caption("Insights from the bar graph:")
         for i in range(len(average_price_by_bhk)):
             average_price_formatted = "{:,.2f}".format(average_price_by_bhk.values[i])
             st.caption(f"<b>Average Price of <b>{average_price_by_bhk.index[i]} BHK</b> in <b>{suburb}</b> is <b>₹{average_price_formatted}</b></b>", unsafe_allow_html=True)
-            
-            
         average_price = df.groupby(['BHK', 'Status'])['Price'].mean().unstack()
         st.divider()
-    
-            # Plot grouped bar chart
         average_price.plot(kind='bar')
         plt.xlabel('BHK')
         plt.ylabel('Average Price')
         plt.title('Average Price by BHK and Status')
         plt.xticks(rotation=0)
-    
         plt.legend(title='Status')
-    
-            # Show plot
         st.pyplot()
         st.caption(f"<b>This graph illustrates the average property prices categorized by BHK configuration and status. It provides insights into the pricing dynamics based on the number of bedrooms (BHK) and the property's current status (Ready to Move or Under Construction) within the {suburb} area.</b>", unsafe_allow_html=True)
         
 def about_page():
-
     st.markdown("""
     <div style='text-align: center; padding: 20px;'>
         <h1 style='font-size: 36px; color: #333;'>Welcome to PropertyPulse</h1>
