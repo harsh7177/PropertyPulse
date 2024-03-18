@@ -45,7 +45,7 @@ def suburbs_page(loc1):
     sns.set_palette("colorblind")
     lottie_cod=load_lot("anime/Animation.json")
     df=df.rename(columns={'ProjectC':'ProjectCount'}) 
-    st.write(df.shape)
+    
     suburb = st.selectbox("Select Suburbs/Area", ["None"]+df['Area'].to_list())
     if suburb== "None":
         st.info('Please Select Area from SelectBox')
@@ -56,6 +56,7 @@ def suburbs_page(loc1):
         apx_time= round(count * 0.05,2) 
         with st_lottie_spinner(lottie_cod):
             df=sub_scrap(href_sub) 
+            st.write(df.shape)
         sfig, axs = plt.subplots(1, 2, figsize=(12, 6))
     
     # Plot status counts
