@@ -10,7 +10,7 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 def city_page(loc1):
     try:
         if len(loc1)>0:
-            df=scrap_city(loc1) 
+            df,endpoint_url=scrap_city(loc1) 
             df=df.rename(columns={'ProjectC':'ProjectCount'}) 
             if True:
     
@@ -32,6 +32,7 @@ def city_page(loc1):
                     st.divider()
     except:
         st.write("Please select some different city")
+        st.write(endpoint_url)
 
 def load_lot(filepath:str):
     with open(filepath,"r") as f:
