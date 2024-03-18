@@ -40,11 +40,12 @@ def load_lot(filepath:str):
         return json.load(f)                
                     
 def suburbs_page(loc1):
-    
+    df=scrap_city(loc1) 
+    href=df[df['Area']=='Sector 150']['href']
     sns.set_style("whitegrid")
     sns.set_palette("colorblind")
     lottie_cod=load_lot("anime/Animation.json")
-    df=scrap_city(loc1) 
+    df=sub_scrap(href) 
     df=df.rename(columns={'ProjectC':'ProjectCount'}) 
     st.write(df.shape)
     suburb = st.selectbox("Select Suburbs/Area", ["None"]+df['Area'].to_list())
