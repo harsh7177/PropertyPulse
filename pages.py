@@ -108,7 +108,7 @@ def suburbs_page(loc1):
             # Show plot
             st.pyplot()
             st.caption(f"<b>This graph illustrates the average property prices categorized by BHK configuration and status. It provides insights into the pricing dynamics based on the number of bedrooms (BHK) and the property's current status (Ready to Move or Under Construction) within the {suburb} area.</b>", unsafe_allow_html=True)
-     except:
+    except:
         st.info("Some Error Encountered")
         
 def about_page():
