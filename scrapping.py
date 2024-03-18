@@ -39,7 +39,7 @@ def area(href):
             }
             
     scrap = bs(requests.get(url).text, 'html.parser')
-    for i in range(8):
+    for i in range(15):
                 sub_url = url if i == 0 else f'{url}?page={i + 1}'
                 area_scrap = bs(requests.get(sub_url).text, 'html.parser')
                 
