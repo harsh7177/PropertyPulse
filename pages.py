@@ -44,74 +44,68 @@ def suburbs_page(loc1):
     sns.set_style("whitegrid")
     sns.set_palette("colorblind")
     lottie_cod=load_lot("anime/Animation.json")
-    try:
-        df=scrap_city(loc1) 
-        df=df.rename(columns={'ProjectC':'ProjectCount'}) 
+
+    df=scrap_city(loc1) 
+    df=df.rename(columns={'ProjectC':'ProjectCount'}) 
             # Simulate a long-running process
-        df=scrap_city(loc1) 
-        df=df.rename(columns={'ProjectC':'ProjectCount'}) 
-        suburb = st.selectbox("Select Suburbs/Area", ["None"]+df['Area'].to_list())
-        if suburb== "None":
-            st.info('Please Select Area from SelectBox')
+    df=scrap_city(loc1) 
+    df=df.rename(columns={'ProjectC':'ProjectCount'}) 
+    suburb = st.selectbox("Select Suburbs/Area", ["None"]+df['Area'].to_list())
+    if suburb== "None":
+        st.info('Please Select Area from SelectBox')
         
-        else:
-            count=round( df.loc[df['Area'] == suburb, 'ProjectCount'].iloc[0],2)
-            href_sub=df.loc[df['Area'] == suburb, 'href'].iloc[0]
-            apx_time= round(count * 0.05,2) 
-            with st_lottie_spinner(lottie_cod):
-                df=sub_scrap(href_sub) 
-            sfig, axs = plt.subplots(1, 2, figsize=(12, 6))
+    else:
+        count=round( df.loc[df['Area'] == suburb, 'ProjectCount'].iloc[0],2)
+        href_sub=df.loc[df['Area'] == suburb, 'href'].iloc[0]
+        apx_time= round(count * 0.05,2) 
+        with st_lottie_spinner(lottie_cod):
+            df=sub_scrap(href_sub) 
+        sfig, axs = plt.subplots(1, 2, figsize=(12, 6))
     
     # Plot status counts
-            status_counts = df['Status'].value_counts()
-            axs[0].bar(status_counts.index, status_counts.values)
-            axs[0].set_xlabel('Status')
-            axs[0].set_ylabel('Count')
-            axs[0].set_title('Status Counts')
-            bhk_counts = df['BHK'].value_counts()
-            axs[1].bar(bhk_counts.index, bhk_counts.values)
-            axs[1].set_xlabel('BHK')
-            axs[1].set_ylabel('Count')
-            axs[1].set_title('BHK Counts')
-    
-    
-    
-            # Adjust layout
-            plt.tight_layout()
-            st.pyplot()
-            st.caption(f"<b>This graph displays the distribution of 'Ready to Move' and 'Under Construction' properties across different BHK categories in {suburb}.</b>", unsafe_allow_html=True)
-            st.divider()
+        status_counts = df['Status'].value_counts()
+        axs[0].bar(status_counts.index, status_counts.values)
+        axs[0].set_xlabel('Status')
+        axs[0].set_ylabel('Count')
+        axs[0].set_title('Status Counts')
+        bhk_counts = df['BHK'].value_counts()
+        axs[1].bar(bhk_counts.index, bhk_counts.values)
+        axs[1].set_xlabel('BHK')
+        axs[1].set_ylabel('Count')
+        axs[1].set_title('BHK Counts')
+        plt.tight_layout()
+        st.pyplot()
+        st.caption(f"<b>This graph displays the distribution of 'Ready to Move' and 'Under Construction' properties across different BHK categories in {suburb}.</b>", unsafe_allow_html=True)
+        st.divider()
             
-            average_price_by_bhk = df.groupby('BHK')['Price'].mean()
-            plt.bar(average_price_by_bhk.index, average_price_by_bhk.values)
-            plt.xlabel('BHK')
-            plt.ylabel('Average Price')
-            plt.title('Average Price by BHK')
+        average_price_by_bhk = df.groupby('BHK')['Price'].mean()
+        plt.bar(average_price_by_bhk.index, average_price_by_bhk.values)
+        plt.xlabel('BHK')
+        plt.ylabel('Average Price')
+        plt.title('Average Price by BHK')
             
-            st.pyplot()
-            st.caption("Insights from the bar graph:")
-            for i in range(len(average_price_by_bhk)):
-                average_price_formatted = "{:,.2f}".format(average_price_by_bhk.values[i])
-                st.caption(f"<b>Average Price of <b>{average_price_by_bhk.index[i]} BHK</b> in <b>{suburb}</b> is <b>₹{average_price_formatted}</b></b>", unsafe_allow_html=True)
+        st.pyplot()
+        st.caption("Insights from the bar graph:")
+        for i in range(len(average_price_by_bhk)):
+            average_price_formatted = "{:,.2f}".format(average_price_by_bhk.values[i])
+            st.caption(f"<b>Average Price of <b>{average_price_by_bhk.index[i]} BHK</b> in <b>{suburb}</b> is <b>₹{average_price_formatted}</b></b>", unsafe_allow_html=True)
             
             
-            average_price = df.groupby(['BHK', 'Status'])['Price'].mean().unstack()
-            st.divider()
+        average_price = df.groupby(['BHK', 'Status'])['Price'].mean().unstack()
+        st.divider()
     
             # Plot grouped bar chart
-            average_price.plot(kind='bar')
-            plt.xlabel('BHK')
-            plt.ylabel('Average Price')
-            plt.title('Average Price by BHK and Status')
-            plt.xticks(rotation=0)
+        average_price.plot(kind='bar')
+        plt.xlabel('BHK')
+        plt.ylabel('Average Price')
+        plt.title('Average Price by BHK and Status')
+        plt.xticks(rotation=0)
     
-            plt.legend(title='Status')
+        plt.legend(title='Status')
     
             # Show plot
-            st.pyplot()
-            st.caption(f"<b>This graph illustrates the average property prices categorized by BHK configuration and status. It provides insights into the pricing dynamics based on the number of bedrooms (BHK) and the property's current status (Ready to Move or Under Construction) within the {suburb} area.</b>", unsafe_allow_html=True)
-    except:
-        st.info("Some Error Encountered")
+        st.pyplot()
+        st.caption(f"<b>This graph illustrates the average property prices categorized by BHK configuration and status. It provides insights into the pricing dynamics based on the number of bedrooms (BHK) and the property's current status (Ready to Move or Under Construction) within the {suburb} area.</b>", unsafe_allow_html=True)
         
 def about_page():
 
