@@ -46,6 +46,7 @@ def suburbs_page(loc1):
     lottie_cod=load_lot("anime/Animation.json")
 
     df=scrap_city(loc1) 
+    st.write(df)
     df=df.rename(columns={'ProjectC':'ProjectCount'}) 
             # Simulate a long-running process
     df=scrap_city(loc1) 
