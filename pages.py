@@ -49,9 +49,12 @@ def suburbs_page(loc1):
         apx_time= round(count * 0.05,2) 
         with st_lottie_spinner(lottie_cod):
             try:
-                df=area(href_sub) 
+                try:
+                    df=area(href_sub) 
+                except:
+                    df=sub_scrap(href_sub)
             except:
-                df=sub_scrap(href_sub)
+                st.info('Working on the error,large data to be scrapped')
         sfig, axs = plt.subplots(1, 2, figsize=(12, 6))
         status_counts = df['Status'].value_counts()
         axs[0].bar(status_counts.index, status_counts.values)
