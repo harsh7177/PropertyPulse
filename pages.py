@@ -48,7 +48,10 @@ def suburbs_page(loc1):
         href_sub=df1.loc[df1['Area'] == suburb, 'href'].iloc[0] 
         with st_lottie_spinner(lottie_cod):
             try:
-                df=area(href_sub) 
+                try:
+                    df=area(href_sub) 
+                except:
+                    df=sub_scrap(href_sub)
             except:
                 st.info('Working on the error,large data to be scrapped')
                 st.write(df)
