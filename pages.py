@@ -55,6 +55,7 @@ def suburbs_page(loc1):
                     df=sub_scrap(href_sub)
             except:
                 st.info('Working on the error,large data to be scrapped')
+        st.write(df)
         sfig, axs = plt.subplots(1, 2, figsize=(12, 6))
         status_counts = df['Status'].value_counts()
         axs[0].bar(status_counts.index, status_counts.values)
