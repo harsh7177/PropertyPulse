@@ -40,7 +40,7 @@ def suburbs_page(loc1):
     sns.set_palette("colorblind")
     lottie_cod=load_lot("anime/Animation.json")
     df1=df1.rename(columns={'ProjectC':'ProjectCount'}) 
-    suburb = st.selectbox("Select Suburbs/Area", ["None"]+df['Area'].to_list())
+    suburb = st.selectbox("Select Suburbs/Area", ["None"]+df1['Area'].to_list())
     if suburb== "None":
         st.info('Please Select Area from SelectBox')   
     else:
