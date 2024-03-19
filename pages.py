@@ -35,18 +35,17 @@ def load_lot(filepath:str):
         return json.load(f)                
                     
 def suburbs_page(loc1):
-    df=scrap_city(loc1) 
+    df1=scrap_city(loc1) 
     sns.set_style("whitegrid")
     sns.set_palette("colorblind")
     lottie_cod=load_lot("anime/Animation.json")
-    df=df.rename(columns={'ProjectC':'ProjectCount'}) 
+    df1=df1.rename(columns={'ProjectC':'ProjectCount'}) 
     suburb = st.selectbox("Select Suburbs/Area", ["None"]+df['Area'].to_list())
     if suburb== "None":
         st.info('Please Select Area from SelectBox')   
     else:
-        count=round( df.loc[df['Area'] == suburb, 'ProjectCount'].iloc[0],2)
-        href_sub=df.loc[df['Area'] == suburb, 'href'].iloc[0]
-        apx_time= round(count * 0.05,2) 
+        count=round( df1.loc[df1['Area'] == suburb, 'ProjectCount'].iloc[0],2)
+        href_sub=df1.loc[df1['Area'] == suburb, 'href'].iloc[0] 
         with st_lottie_spinner(lottie_cod):
             try:
                 try:
