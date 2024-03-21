@@ -39,9 +39,9 @@ def area(href):
         
         try:
             scrap = bs(requests.get(url).text, 'html.parser')
-        except (requests.RequestException, bs4.FeatureNotFound, bs4.SoupStrainer) as e:
+        except  as e:
             print(f"Error occurred while scraping: {e}")
-            return pd.DataFrame(result)  # Return an empty DataFrame if there's an error
+ # Return an empty DataFrame if there's an error
         
         for i in scrap.find_all('div', class_='search-result-footer'):
             x = i.text
