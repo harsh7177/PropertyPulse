@@ -20,7 +20,7 @@ def scrap_city(loc1):
     return df
 
 def sub_scrap(href):
-    endpoint_url = st.secret['endpoint_url_2"]
+    endpoint_url = st.secret["endpoint_url_2"]
     post = {"loc": "None","href":href}
     response = requests.post(endpoint_url, json=post).text
     response_body_dict = json.loads(response)
