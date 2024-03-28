@@ -10,7 +10,6 @@ import json
 @st.cache_data
 def scrap_city(loc1):
     endpoint_url = st.secrets["endpoint_url"]
-    st.write(st.secrets["endpoint_url"])
     post = {"loc": str(loc1),"href":"None"}
     response = requests.post(endpoint_url, json=post)
     z=response.text
